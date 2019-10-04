@@ -47,7 +47,7 @@ app.get('/',(req,res)=>{
         console.log(fields)
         res.render("pages/index",{
             siteTitle: siteTitle,
-            pageTitle: "Event list",
+            pageTitle: "EventIF",
             items : rows
         });    
         if(!err)
@@ -61,7 +61,7 @@ app.get('/',(req,res)=>{
 app.get('/eventif/addemployee',(req,res)=>{
     res.render("pages/addemployee",{
         siteTitle: siteTitle,
-        pageTitle: "Add new employee",
+        pageTitle: "EventIF" + " Edit Employee",
         items: ''
     })
 })
@@ -77,5 +77,37 @@ app.post('/eventif/addemployee',(req,res)=>{
         res.redirect(baseURL);
     });
 });
+
+app.get('/eventif/editemployee/:id',(req,res)=>{
+    mysqlConnection.query("SELECT * FROM Employee WHERE EmpID= '"+req.params.id+"'", (err,rows)=>{
+        res.render("pages/editemployee",{
+            siteTitle: siteTitle,
+            pageTitle: 'Editing employee:'+ rows[0].Name,
+            item: rows
+        });
+    });
+});
+
+app.post('/eventif/editemployee/:id',(req,res)=>{
+    var query = "UPDATE `Employee` SET";
+        query += "`Name` = '"+req.body.Name+"',";
+        query += "`EmpCode` = '"+req.body.EmpCode+"',";
+        query += "`Salary` = '"+req.body.Salary+"'";
+        query += "Where `Employee`.`EmpID` = "+req.body.EmpID+"";
+    mysqlConnection.query(query,(err,rows)=>{
+        if(rows.affectedRows)
+        {
+            res.redirect(baseURL);
+        }
+    });
+});
+
+app.get('/eventif/deleteemployee/:id',(req,res)=>{
+    mysqlConnection.query("DELETE FROM Employee WHERE EmpID= '"+req.params.id+"'",(err,rows)=>{
+        if(rows.affectedRows){
+            res.redirect(baseURL)
+        }
+    })
+})
 //connect to the server 
 app.listen(3000,()=> console.log('Express server is running in 3000'));
