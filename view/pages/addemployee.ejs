@@ -1,0 +1,34 @@
+<% include ../partials/header %>
+<br/>
+<div class="row" style="margin-left: 50px; margin-right: 50px">
+    <form action="http://localhost:3000/eventif/addemployee" method="POST" class="col s12">
+        
+        <input type="hidden" name="EmpID" value="">
+
+        <div class="form-group row">
+            <label for="Name" class="col-2 col-form-label">Name</label>
+            <div class="col-12">
+                <input type="text" name="Name" value="" class="form-control">
+            </div>
+        </div>
+
+        
+        <div class="form-group row">
+            <label for="EmpCode" class="col-2 col-form-label">EmpCode</label>
+            <div class="col-12">
+                <input type="text" name="EmpCode" value="" class="form-control">
+            </div>
+        </div>
+
+        
+        <div class="form-group row">
+            <label for="Salary" class="col-2 col-form-label">Salary</label>
+            <div class="col-12">
+                <input type="number" name="Salary" value="" class="form-control">
+            </div>
+        </div>
+
+        <input type="submit" name="submit" value="Save Event" class="btn btn-primary btn-lg">
+    </form>
+</div>
+<% include ../partials/footer %>
